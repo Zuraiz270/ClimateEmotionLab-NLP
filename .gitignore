@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Checkpoints
+.ipynb_checkpoints/
+
+# Virtual Environment
+climate_emotion_env/
+venv/
+env/
+.env
+
+# Data and Models (Recursive - matches these directories anywhere)
+Datasets/
+data/
+models/
+results/
+reports/
+
+# OS specific files
+.DS_Store
+Thumbs.db

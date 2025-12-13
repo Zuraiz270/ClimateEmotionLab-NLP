@@ -1,0 +1,166 @@
+🚀 REVISED PROJECT ROADMAP
+PHASE 1: Multi-Dataset Integration & Emotion Model ⏳ NEXT 2-3 DAYS
+
+Step 1: Create Enhanced Data Combination Notebook
+File: 04_integrate_all_datasets.ipynb
+Purpose: Combine all three text datasets with comprehensive analysis
+Merge RSS headlines (449) + Sentiment headlines (1,025) = ~1,474 total headlines
+Standardize column schemas across datasets
+Create unified metadata framework
+Statistical comparison of data sources
+Deliverables:
+Combined headlines dataset with source tracking
+Data quality assessment across all sources
+Temporal analysis and source distribution
+Text overlap analysis between RSS and sentiment datasets
+
+Step 2: GoEmotions Emotion Classifier Training
+File: 05_train_emotion_classifier.ipynb
+Purpose: Fine-tune RoBERTa on GoEmotions for climate text analysis
+Load GoEmotions train/dev/test splits (43k/5k/5k samples)
+Implement RoBERTa fine-tuning pipeline
+Validate model performance with cross-validation
+Save trained model for inference
+Technical Specifications:
+Model: roberta-base with classification head
+Training: 3-5 epochs with learning rate scheduling
+Validation: F1-score, precision, recall for 27 emotions
+Output: Trained model + performance metrics
+
+Step 2.5: Domain Adaptation for Climate Text
+File: 05b_domain_adaptation.ipynb
+Purpose: Fine-tune GoEmotions model on climate-specific annotated data
+Create annotated subset: 250 headlines + 250 tweets (500 total)
+Manual annotation using GoEmotions 27-category framework
+Domain-specific fine-tuning with lower learning rate
+Genre-aware evaluation and validation
+Technical Specifications:
+Base model: Trained GoEmotions classifier from Step 2
+Annotation: Equal distribution across news/social media genres
+Fine-tuning: 2-3 epochs with reduced learning rate (1e-5)
+Validation: Genre-specific performance metrics
+Output: Domain-adapted model + annotation dataset
+
+PHASE 2: Comprehensive Emotion Analysis ⏳ NEXT 3-4 DAYS
+
+Step 3: Apply Emotion Classification
+File: 06_apply_emotion_analysis.ipynb
+Purpose: Apply trained emotion model to all climate datasets
+Headlines (Combined): ~1,474 headlines with emotion predictions
+Tweets: 8,968 tweets with emotion predictions
+Generate confidence scores and uncertainty estimates
+Create emotion distribution profiles
+Key Outputs:
+Emotion predictions for all text data
+Confidence scores and prediction uncertainty
+Top emotion categories per dataset
+Emotion co-occurrence patterns
+
+Step 4: Sentiment vs. Emotion Validation
+File: 07_sentiment_emotion_validation.ipynb
+Purpose: Compare pre-labeled sentiment with emotion predictions
+Correlation analysis: Sentiment scores vs. emotion intensities
+Validation of emotion model using sentiment ground truth
+Emotion-to-sentiment mapping validation
+Identify discrepancies and insights
+Research Questions:
+How do 27 emotions map to simple sentiment polarities?
+Which emotions correlate strongest with negative/positive sentiment?
+Can emotion analysis provide more nuanced insights than sentiment?
+
+PHASE 3: Cross-Media Research Analysis ⏳ NEXT 4-5 DAYS
+
+Step 5: Cross-Media Emotion Comparison
+File: 08_cross_media_analysis.ipynb
+Purpose: Statistical comparison of emotions across media types
+News Headlines vs. Social Media Tweets
+Temporal emotion patterns and trends
+Source-specific emotion profiles
+User engagement vs. emotion intensity
+Statistical Analysis:
+Chi-square tests for emotion distribution differences
+ANOVA for emotion intensity comparisons
+Temporal trend analysis with time series
+Correlation analysis: emotions vs. engagement metrics
+
+Step 6: Advanced Interpretability Analysis
+File: 09_interpretability_insights.ipynb
+Purpose: Deep dive into emotion-text associations with cross-media comparison
+SHAP analysis for emotion model interpretability (genre-specific)
+Keyword-emotion association mapping across media types
+Topic modeling with emotion overlay
+Semantic analysis of emotion triggers
+KL-divergence quantification for emotion distributions
+Comparative explainability: tweets vs headlines
+Advanced Features:
+LIME explanations for individual predictions
+Attention visualization for transformer model
+Emotion-specific vocabulary extraction
+Climate topic clustering with emotion profiles
+Genre-specific SHAP value comparison
+Words/phrases driving emotions in tweets vs headlines
+PHASE 4: Research Report & Visualization ⏳ FINAL 2-3 DAYS
+
+Step 7: Comprehensive Research Dashboard
+File: 10_research_dashboard.ipynb
+Purpose: Create publication-ready research findings
+Interactive visualizations with Plotly
+Statistical significance testing
+Research insights and conclusions
+Reproducible analysis pipeline
+Dashboard Components:
+Emotion distribution heatmaps across media types
+Temporal emotion trend analysis
+Source-specific emotion profiles
+Engagement correlation analysis
+Model performance validation metrics
+
+🎯 IMMEDIATE ACTION PLAN
+THIS WEEK (Days 1-3)
+Create 04_integrate_all_datasets.ipynb
+
+Combine RSS + Sentiment headline datasets
+Comprehensive data quality assessment
+Unified schema and metadata
+Create 05_train_emotion_classifier.ipynb
+
+GoEmotions model training pipeline
+Cross-validation and performance metrics
+Save trained model for deployment
+NEXT WEEK (Days 4-7)
+Create 06_apply_emotion_analysis.ipynb
+
+Apply emotion model to all datasets
+Generate comprehensive emotion predictions
+Create 07_sentiment_emotion_validation.ipynb
+
+Validate emotion model using sentiment ground truth
+Statistical correlation analysis
+WEEK 3 (Days 8-12)
+Complete cross-media analysis and interpretability
+Create research dashboard and final report
+🔬 ENHANCED RESEARCH QUESTIONS
+Primary Research Questions:
+How do emotional expressions differ between news media and social media when discussing climate change?
+What is the relationship between sentiment polarity and fine-grained emotion categories?
+Which emotions are most predictive of social media engagement on climate topics?
+How do temporal patterns in climate emotions vary across different media sources?
+Secondary Research Questions:
+Can emotion analysis provide more actionable insights than traditional sentiment analysis?
+What climate-related topics trigger the strongest emotional responses?
+How do professional journalism emotions compare to citizen reactions on social media?
+✅ PROJECT ADVANTAGES
+Unique Strengths:
+Multi-modal data: News + Social Media + Pre-labeled Sentiment
+Research-grade framework: GoEmotions 27-category system
+Comprehensive scope: 10k+ texts across multiple sources
+Validation opportunity: Sentiment vs. Emotion comparison
+Temporal analysis: Timeline-based emotion trends
+Expected Outcomes:
+Academic publication: Comparative emotion analysis across media types
+Practical insights: Climate communication recommendations
+Technical contribution: Fine-tuned emotion classifier for climate text
+Research framework: Reproducible analysis pipeline
+Your project is now positioned as a comprehensive, multi-faceted research study with significant academic and practical value! 🎯
+
+Would you like me to start by creating the first notebook (04_integrate_all_datasets.ipynb) to combine your three headline datasets?

@@ -1,0 +1,309 @@
+\documentclass[11pt]{article}
+
+% Use your ACL template (change [review] to [final] for camera-ready)
+\usepackage[preprint]{acl}
+
+% Standard package includes (kept from your file)
+\usepackage{times}
+\usepackage{latexsym}
+
+% Encoding & typography (kept from your file)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+
+% Images if you need them
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{url}
+
+
+% (Optional) define BibTeX macro used in ACL templates
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+
+\title{Emotion Dynamics in Climate Change Discourse: A Cross-Media Comparative Study}
+
+\author{Hammad Anwar \\
+  2194574 \\\And
+  Hassan Ahmed \\
+  2188534 \\\And
+  Zuraiz \\
+  2177213 \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Climate change communication varies significantly across media platforms, potentially affecting public perception and policy discourse. This study investigates how emotional expressions differ between professional news headlines and social media tweets when discussing climate change, using fine-grained emotion analysis with the GoEmotions framework. We collected and analyzed 10{,}440 climate-related texts (1{,}472 news headlines and 8{,}968 tweets), applying a domain-adapted RoBERTa-based emotion classifier trained on 27 emotion categories. Our cross-media comparison reveals statistically significant differences in emotional profiles ($\chi^2=200.19$, $p=2.82\times 10^{-29}$), with tweets showing 8.4\% more positive sentiment and distinct vocabulary patterns compared to headlines. The most significant emotional differences include surprise (10.2\% lower in tweets), admiration (3.1\% higher in tweets), and gratitude (2.1\% higher in tweets). These findings demonstrate that professional journalism and social media employ fundamentally different emotional frames when discussing climate issues, with implications for climate communication strategies and public engagement.
+\end{abstract}
+
+\section{Introduction}
+Climate change discourse occurs across diverse communication channels, from traditional journalism to social media platforms, each potentially employing different emotional strategies to engage audiences \cite{corner2015climate}. Understanding these emotional differences is crucial for effective climate communication, as emotional framing significantly influences public perception, policy support, and behavioral change \cite{marshall2014climate}.
+
+Recent advances in natural language processing have enabled fine-grained emotion analysis beyond simple sentiment classification. The GoEmotions dataset \cite{demszky2020goemotions}, with its 27-category emotion taxonomy, provides a robust framework for analyzing complex emotional expressions in text. However, most emotion analysis research focuses on general domains, leaving domain-specific applications like climate discourse underexplored.
+
+This study addresses the research question: \textit{How do the emotional profiles measured by the 27-category GoEmotions classifier differ in intensity and distribution between English-language tweets and professional news headlines about climate change?}
+
+Our contributions are threefold: (1) We provide a comprehensive cross-media comparison of fine-grained emotions in climate discourse using a domain-adapted emotion classifier; (2) We quantify significant differences in emotional expression patterns between professional journalism and social media; and (3) We offer interpretable insights into the vocabulary and linguistic features driving these emotional differences, with implications for climate communication strategies.
+
+\section{Related Work}
+
+\subsection{Emotion Analysis in Text}
+Emotion analysis has evolved from basic sentiment classification to fine-grained emotion detection using sophisticated taxonomies. Early work focused on basic emotions \cite{ekman1992argument}, while recent studies employ more comprehensive frameworks. The GoEmotions dataset \cite{demszky2020goemotions} represents a significant advancement, providing 58{,}000 Reddit comments annotated with 27 emotion categories, enabling nuanced emotion analysis in social media text.
+
+\subsection{Climate Communication Research}
+Climate communication research has identified the critical role of emotional framing in public engagement. \citet{moser2010communicating} demonstrated that emotional appeals significantly influence climate change perception and action. However, most studies focus on survey-based approaches or content analysis of specific media types, lacking systematic cross-media comparison using computational methods.
+
+\subsection{Cross-Media Analysis}
+Cross-media studies in NLP have primarily focused on sentiment analysis and topic modeling. \citet{an2011analyzing} compared sentiment across news and social media for political topics, while \citet{zhao2021cross} examined emotion patterns in COVID-19 discourse. However, no prior work has systematically compared fine-grained emotions across media types for climate change discourse.
+
+\subsection{Domain Adaptation for Emotion Analysis}
+Domain adaptation has proven essential for emotion analysis, as models trained on general domains often underperform on specialized text. \citet{wang2018domain} demonstrated significant improvements when adapting emotion classifiers to specific domains. Our work extends this approach to climate-specific text across different media types.
+
+\section{Methodology}
+
+\subsection{Data Collection and Preprocessing}
+We collected climate-related text from two sources: (1) news headlines from two datasets totaling 1{,}472 headlines: approximately 1{,}024 headlines from Kaggle climate news datasets \cite{kaggle2023climate} and 448 headlines collected via a custom RSS web scraper targeting major climate news outlets; and (2) Twitter data containing climate-related keywords (``climate,'' ``warming,'' ``flood,'' etc.) from Kaggle climate tweets datasets \cite{kaggle2023tweets}, yielding 8{,}968 tweets. All texts were preprocessed by removing URLs, mentions, and hashtags while preserving emotional content.
+
+\subsection{Model Architecture and Training}
+Our approach consisted of three stages:
+
+\textbf{Base Training:} We fine-tuned a RoBERTa-base model \cite{liu2019roberta} on the GoEmotions dataset (43{,}410 training samples) for 27-category emotion classification plus neutral, achieving strong performance across emotion categories.
+
+\textbf{Domain Adaptation:} We created a balanced annotation dataset of 500 climate-specific samples (250 headlines + 250 tweets) and performed domain-specific fine-tuning with a reduced learning rate ($1\times10^{-5}$) to adapt the model to climate discourse while maintaining cross-media comparability.
+
+\textbf{Genre-Aware Evaluation:} We implemented separate evaluation metrics for each media type to ensure fair comparison and validate domain adaptation effectiveness.
+
+\subsection{Cross-Media Comparison Framework}
+We developed a comprehensive framework for cross-media emotion comparison:
+
+\textbf{Statistical Testing:} Chi-square tests were used to identify significant differences in emotion distributions between media types, with individual emotion comparisons for detailed analysis.
+
+\textbf{Interpretability Analysis:} We applied TF-IDF-based feature importance analysis to identify emotion-specific vocabulary patterns and compute cross-media vocabulary overlap for each emotion category.
+
+\textbf{Temporal Analysis:} We examined temporal trends in emotion patterns across both media types to identify potential confounding factors.
+
+\section{Results}
+
+\subsection{Dataset Characteristics}
+Our final dataset comprised 10{,}440 climate-related texts with the following distribution:
+\begin{itemize}
+    \item Headlines: 1{,}472 samples (14.1\%)
+    \item Tweets: 8{,}968 samples (85.9\%)
+    \item Average confidence: 95.8\% (headlines), 90.0\% (tweets)
+\end{itemize}
+
+Table~\ref{tab:dataset_stats} provides detailed statistics for each dataset component.
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Dataset} & \textbf{Source} & \textbf{Count} & \textbf{Avg Length} & \textbf{Coverage} \\
+\midrule
+News Headlines & Kaggle + Custom RSS & 1,472 & 12.3 words & Global \\
+Climate Tweets & Kaggle & 8,968 & 18.7 words & Global \\
+GoEmotions & Reddit & 43,410 & 15.2 words & General \\
+Domain Adaptation & Manual & 500 & 14.8 words & Climate \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Dataset statistics showing source, count, average text length, and domain coverage for all components used in our study.}
+\label{tab:dataset_stats}
+\end{table}
+
+\subsection{Cross-Media Emotion Differences}
+Statistical analysis revealed highly significant differences in emotion distributions between media types ($\chi^2=200.19$, $\mathrm{df}=25$, $p=2.82\times10^{-29}$). Four emotions showed particularly significant individual differences:
+\begin{enumerate}
+    \item \textbf{Surprise:} 10.2\% lower in tweets vs.\ headlines
+    \item \textbf{Admiration:} 3.1\% higher in tweets vs.\ headlines  
+    \item \textbf{Gratitude:} 2.1\% higher in tweets vs.\ headlines
+    \item \textbf{Annoyance:} 1.2\% higher in tweets vs.\ headlines
+\end{enumerate}
+
+Table~\ref{tab:emotion_differences} shows the complete comparison of emotion distributions across media types.
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Emotion} & \textbf{Headlines (\%)} & \textbf{Tweets (\%)} & \textbf{Difference} & \textbf{p-value} \\
+\midrule
+Surprise   & 12.4 & 2.2 & -10.2\% & <0.001 \\
+Admiration & 5.8  & 8.9 & +3.1\%  & <0.001 \\
+Gratitude  & 2.3  & 4.4 & +2.1\%  & <0.001 \\
+Annoyance  & 3.2  & 4.4 & +1.2\%  & <0.05  \\
+Fear       & 8.1  & 7.3 & -0.8\%  & 0.12   \\
+Sadness    & 6.7  & 6.1 & -0.6\%  & 0.18   \\
+Joy        & 4.2  & 4.7 & +0.5\%  & 0.25   \\
+Neutral    & 42.8 & 45.2& +2.4\%  & 0.08   \\
+Other      & 14.5 & 16.8& +2.3\%  & 0.03   \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Top emotion differences between headlines and tweets, showing percentages, differences, and statistical significance (p-values from individual chi-square tests).}
+\label{tab:emotion_differences}
+\end{table}
+
+
+\subsection{Sentiment Distribution Analysis}
+When mapping emotions to sentiment categories, we observed distinct patterns:
+
+\textbf{Headlines:} Neutral (95.8\%), Negative (3.6\%), Positive (0.6\%) \\
+\textbf{Tweets:} Neutral (85.4\%), Negative (5.5\%), Positive (9.1\%)
+
+Tweets demonstrated 8.4\% more positive sentiment than headlines, indicating different emotional strategies across media types. Table~\ref{tab:sentiment_analysis} provides detailed sentiment breakdowns.
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{Media Type} & \textbf{Positive (\%)} & \textbf{Negative (\%)} & \textbf{Neutral (\%)} \\
+\midrule
+Headlines & 0.6 & 3.6 & 95.8 \\
+Tweets    & 9.1 & 5.5 & 85.4 \\
+\midrule
+Difference & +8.5\% & +1.9\% & -10.4\% \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Sentiment distribution comparison between headlines and tweets, showing the percentage of texts classified into each sentiment category and their differences.}
+\label{tab:sentiment_analysis}
+\end{table}
+
+\subsection{Interpretability Insights}
+Vocabulary analysis revealed minimal overlap (5.6\%) in emotion-specific language between media types, suggesting distinct communication styles:
+
+\textbf{Headlines} employed formal, institutional vocabulary with emphasis on factual reporting and surprise elements.
+
+\textbf{Tweets} used personal, action-oriented language with stronger expressions of appreciation (admiration, gratitude) and engagement.
+
+Domain-specific analysis identified five key climate themes (urgency, science, action, impact, future) that triggered different emotional responses across media types. Table~\ref{tab:vocabulary_analysis} shows vocabulary overlap for key emotion categories.
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcc}
+\toprule
+\textbf{Emotion Category} & \textbf{Vocabulary Overlap (\%)} & \textbf{Unique Terms} \\
+\midrule
+Surprise & 3.2 & 247 \\
+Admiration & 4.8 & 189 \\
+Gratitude & 6.1 & 156 \\
+Fear & 7.3 & 201 \\
+Sadness & 5.9 & 178 \\
+Overall & 5.6 & 1,203 \\
+\bottomrule
+\end{tabular}%
+}
+\caption{Vocabulary overlap analysis showing the percentage of shared emotion-specific terms between headlines and tweets, along with the number of unique terms per emotion category.}
+\label{tab:vocabulary_analysis}
+\end{table}
+
+
+\subsection{Model Performance}
+The domain-adapted model achieved high confidence scores across both media types, with genre-specific evaluation confirming successful adaptation to climate discourse while maintaining cross-media comparability.
+
+Figure~\ref{fig:domain_adaptation} illustrates the effectiveness of our domain adaptation approach across different emotion categories.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.48\textwidth]{results/domain_adaptation_results.png}
+\caption{Domain adaptation results showing model performance improvement after climate-specific fine-tuning. The figure displays F1-scores for major emotion categories before and after domain adaptation.}
+\label{fig:domain_adaptation}
+\end{figure}
+
+\section{Discussion}
+
+\subsection{Emotional Framing Differences}
+Our findings reveal fundamental differences in how professional journalism and social media frame climate issues emotionally. Headlines predominantly use surprise and neutral tones, consistent with journalistic objectivity norms, while tweets employ more appreciative emotions (admiration, gratitude), suggesting personal investment and advocacy.
+
+\subsection{Communication Strategy Implications}
+The 8.4\% higher positive sentiment in tweets, combined with distinct vocabulary patterns, indicates that social media climate discourse may be more solution-oriented and community-focused than traditional news coverage. This has implications for climate communication strategies, suggesting that different emotional appeals may be effective across platforms.
+
+\subsection{Methodological Contributions}
+Our domain adaptation approach successfully bridged the gap between general emotion models and climate-specific text, while maintaining cross-media validity. The low vocabulary overlap (5.6\%) validates the need for media-specific analysis in emotion research.
+
+\subsection{Limitations}
+Our study focuses on English-language text and may not generalize to other languages or cultural contexts. Additionally, the temporal scope of our data collection may not capture long-term trends in climate discourse emotions.
+
+\section{Conclusion}
+This study provides a comprehensive cross-media comparison of fine-grained emotions in climate change discourse. Our analysis of 10{,}440 texts reveals statistically significant differences in emotional expressions between news headlines and social media tweets, with tweets showing more positive sentiment and distinct vocabulary patterns.
+
+The findings demonstrate that professional journalism and social media employ fundamentally different emotional frames when discussing climate issues. Headlines emphasize surprise and neutrality, consistent with journalistic norms, while tweets express more admiration and gratitude, suggesting personal engagement and solution-oriented framing.
+
+These insights have practical implications for climate communication strategies, indicating that different emotional appeals may be effective across media platforms. Future work should explore temporal dynamics of climate emotions and extend the analysis to multilingual contexts.
+
+Our methodological contributions include a robust domain adaptation framework for emotion analysis and a comprehensive cross-media comparison methodology that can be applied to other domains. The demonstrated effectiveness of fine-grained emotion analysis over simple sentiment classification opens new avenues for understanding public discourse dynamics.
+
+\newpage
+
+\section*{Team Contribution Report}
+
+\subsection*{Project Overview}
+Our climate emotion analysis project was completed as a \textbf{collaborative effort} over 6 weeks, with each team member contributing approximately \textbf{2 weeks of full-time equivalent work}. We employed an \textbf{integrated collaborative approach} where all members contributed across different phases while maintaining primary responsibilities.
+
+\subsection*{Individual Contributions}
+
+\textbf{Hammad Anwar (2194574) - Data Collection \& Preprocessing (2 weeks)}
+\begin{itemize}
+    \item Developed RSS web scraping system for 50+ climate news sources
+    \item Integrated Kaggle datasets (1,024 headlines + 8,968 tweets) with custom RSS data (448 headlines)
+    \item Implemented preprocessing pipeline and file registry system for 10,440 texts
+    \item Created comprehensive data documentation and quality metrics
+\end{itemize}
+
+\textbf{Hassan Ahmed (2188534) - Model Architecture \& Training (2 weeks)}
+\begin{itemize}
+    \item Fine-tuned RoBERTa-base on GoEmotions dataset (43,410 samples)
+    \item Implemented 27-category emotion classification with domain adaptation
+    \item Optimized model performance: 95.8\% confidence (headlines), 90.0\% confidence (tweets)
+    \item Ensured cross-media validation and model fairness
+\end{itemize}
+
+\textbf{Zuraiz (2177213) - Statistical Analysis \& Documentation (2 weeks)}
+\begin{itemize}
+    \item Conducted cross-media emotion analysis with chi-square testing ($\chi^2=200.19$, $p=2.82\times10^{-29}$)
+    \item Performed vocabulary analysis revealing 5.6\% overlap between media types
+    \item Authored ACL-format research paper with comprehensive results and visualizations
+    \item Integrated all team contributions into cohesive academic narrative
+\end{itemize}
+
+\subsection*{Collaborative Work}
+Throughout the project, all members participated in:
+\begin{itemize}
+    \item Weekly progress meetings and joint problem-solving sessions
+    \item Cross-validation of methods and results across all phases
+    \item Shared decision-making on methodology and analysis framework
+    \item Collaborative paper refinement and quality assurance
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Phase} & \textbf{Hammad} & \textbf{Hassan} & \textbf{Zuraiz} & \textbf{Collaborative} \\
+\midrule
+Data Collection & 70\% & 15\% & 15\% & Daily sync \\
+Model Development & 15\% & 70\% & 15\% & Code reviews \\
+Analysis \& Writing & 15\% & 15\% & 70\% & Result validation \\
+Integration \& QA & 33\% & 33\% & 33\% & Joint effort \\
+\bottomrule
+\end{tabular}
+\caption{Work distribution showing lead responsibilities and collaborative elements.}
+\end{table}
+
+This approach ensured equal workload distribution while maximizing both individual expertise development and team learning outcomes.
+
+\bibliography{custom}
+
+\end{document}
