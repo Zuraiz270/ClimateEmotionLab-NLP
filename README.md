@@ -140,23 +140,42 @@ jupyter notebook 08_cross_media_analysis.ipynb
 
 ---
 
-## 📊 Results
+## 📊 Key Findings
 
-### Emotion Distribution Across Media Types
+### Cross-Media Emotion Analysis
 
-| Emotion Category | News Headlines | Social Media |
-|-----------------|----------------|--------------|
-| Fear / Anxiety | High | Moderate |
-| Anger | Moderate | High |
-| Sadness | Moderate | Moderate |
-| Hope / Optimism | Low | Moderate |
+Our statistical analysis reveals **highly significant differences** in emotion distributions between news headlines and social media (Chi-square p-value: **2.82e-29**, df=25).
 
-> *Detailed results and visualizations available in `notebooks/08_cross_media_analysis.ipynb`*
+| Emotion | Headlines | Tweets | Difference |
+|---------|-----------|--------|------------|
+| **Surprise** | 89.13% | 78.97% | **-10.16%** |
+| **Admiration** | 0.00% | 3.09% | +3.09% |
+| **Gratitude** | 0.20% | 2.27% | +2.07% |
+| **Annoyance** | 0.07% | 1.32% | +1.25% |
+| **Curiosity** | 6.59% | 5.39% | -1.20% |
+| **Fear** | 1.09% | 0.38% | -0.71% |
+
+> **4 emotions** show statistically significant differences (p<0.05): *surprise, admiration, gratitude, annoyance*
+
+### Research Insights
+
+- 📰 **News Headlines** exhibit higher levels of *surprise* and *fear* — consistent with journalistic attention-grabbing tendencies
+- 🐦 **Social Media** shows more *admiration*, *gratitude*, and *annoyance* — reflecting personal engagement and emotional expression
+- ⚡ **Key Vocabulary Drivers**:
+  - Fear: `warn`, `record`, `health`, `experts warn`
+  - Gratitude: `thanks`, `thank`, `work`
+  - Annoyance: `nothing`, `people`
 
 ### Model Performance
 
-- **Base GoEmotions F1-Score**: ~0.46 (27-class multi-label)
-- **Domain-Adapted F1-Score**: Improved performance on climate-specific text
+| Metric | Value |
+|--------|-------|
+| Base GoEmotions F1-Score | ~0.46 (27-class multi-label) |
+| Number of Emotion Labels | 28 |
+| Model Architecture | RoBERTa-base |
+| Datasets Analyzed | 1,472 Headlines + 8,968 Tweets |
+
+> *Full analysis and visualizations: `notebooks/08_cross_media_analysis.ipynb`*
 
 ---
 
